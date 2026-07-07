@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-profile" th:href="@{/profile}">Profile</a>
+        <a id="nav-results" th:href="@{/results}">Results</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <a id="nav-logout" href="#" onclick="this.closest('form').submit();return false;">Logout</a>
+        </form>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Academic Results</h1>
+        <p class="muted">
+            Results for <strong id="results-student" th:text="${student.fullName}">Student</strong>
+        </p>
+
+        <table id="results-table">
+            <thead>
+            <tr>
+                <th>Course code</th>
+                <th>Course title</th>
+                <th>Semester</th>
+                <th>Marks</th>
+                <th>Grade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="result : ${results}">
+                <td th:text="${result.course.code}">CS101</td>
+                <td th:text="${result.course.title}">Course</td>
+                <td th:text="${result.semester}">Semester</td>
+                <td th:text="${#numbers.formatDecimal(result.marks, 1, 1)}">0.0</td>
+                <td th:text="${result.grade}">A</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(results)}">
+                <td colspan="5" class="muted">No results recorded yet.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top:18px;">
+            <strong>Average marks:</strong>
+            <span id="results-average" th:text="${#numbers.formatDecimal(averageMarks, 1, 1)}">0.0</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>

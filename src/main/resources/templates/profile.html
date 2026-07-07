@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-profile" th:href="@{/profile}">Profile</a>
+        <a id="nav-results" th:href="@{/results}">Results</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <a id="nav-logout" href="#" onclick="this.closest('form').submit();return false;">Logout</a>
+        </form>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>My Profile</h1>
+        <div class="profile-row">
+            <div class="key">Full name</div>
+            <div class="value" id="profile-fullName" th:text="${student.fullName}">Full name</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Username</div>
+            <div class="value" id="profile-username" th:text="${student.username}">username</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Email</div>
+            <div class="value" id="profile-email" th:text="${student.email}">email</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Program</div>
+            <div class="value" id="profile-program" th:text="${student.program}">program</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Enrollment year</div>
+            <div class="value" id="profile-enrollmentYear" th:text="${student.enrollmentYear}">year</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a th:href="@{/register}">Register</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card auth-card">
+        <h1>Login</h1>
+
+        <div id="login-error" class="alert alert-error" th:if="${param.error}">
+            Invalid username or password.
+        </div>
+        <div id="logout-message" class="alert alert-success" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <div id="registered-message" class="alert alert-success" th:if="${param.registered}">
+            Registration successful. Please log in.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autofocus>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button id="login-submit" type="submit">Login</button>
+        </form>
+
+        <p class="muted" style="margin-top:18px;">
+            No account yet? <a class="link" th:href="@{/register}">Register here</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
