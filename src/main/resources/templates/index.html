@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card auth-card" style="text-align:center;">
+        <h1>Welcome</h1>
+        <p class="muted">
+            A simple student portal for registration, login, and viewing your
+            profile and academic results.
+        </p>
+        <a id="go-login" class="btn" th:href="@{/login}">Login</a>
+        <a id="go-register" class="link" th:href="@{/register}" style="margin-left:16px;">Create an account</a>
+    </div>
+</div>
+</body>
+</html>

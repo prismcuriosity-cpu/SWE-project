@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-profile" th:href="@{/profile}">Profile</a>
+        <a id="nav-results" th:href="@{/results}">Results</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <a id="nav-logout" href="#" onclick="this.closest('form').submit();return false;">Logout</a>
+        </form>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1 id="welcome-heading">Welcome, <span th:text="${student.fullName}">Student</span></h1>
+        <p class="muted">
+            Signed in as <strong id="dashboard-username" th:text="${student.username}">username</strong>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Overview</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="value" id="stat-program" th:text="${student.program}">Program</div>
+                <div class="label">Program</div>
+            </div>
+            <div class="stat">
+                <div class="value" id="stat-courses" th:text="${courseCount}">0</div>
+                <div class="label">Courses with results</div>
+            </div>
+            <div class="stat">
+                <div class="value" id="stat-average"
+                     th:text="${#numbers.formatDecimal(averageMarks, 1, 1)}">0.0</div>
+                <div class="label">Average marks</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Quick links</h2>
+        <a class="btn" th:href="@{/profile}">View profile</a>
+        <a class="btn" th:href="@{/results}" style="margin-left:12px;">View results</a>
+    </div>
+</div>
+</body>
+</html>
