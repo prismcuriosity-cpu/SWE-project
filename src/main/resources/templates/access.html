@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Center - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-access" th:href="@{/access}">Access Center</a>
+        <a id="nav-profile" th:href="@{/profile}">Profile</a>
+        <a id="nav-results" th:href="@{/results}">Results</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <a id="nav-logout" href="#" onclick="this.closest('form').submit();return false;">Logout</a>
+        </form>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Student Access Center</h1>
+        <p class="muted">
+            Quick links to the university's portals and services. Select a card to
+            open the resource in a new tab.
+        </p>
+    </div>
+
+    <!-- One block per section, preserving the order defined in the controller. -->
+    <div th:each="section : ${sections}" class="card">
+        <h2 class="section-title" th:text="${section.key}">Section</h2>
+        <div class="link-grid">
+            <a class="link-card" target="_blank" rel="noopener noreferrer"
+               th:each="link : ${section.value}" th:href="${link.url}">
+                <span class="link-icon" th:text="${link.icon}">🔗</span>
+                <span class="link-body">
+                    <span class="link-title" th:text="${link.title}">Title</span>
+                    <span class="link-desc" th:text="${link.description}">Description</span>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
