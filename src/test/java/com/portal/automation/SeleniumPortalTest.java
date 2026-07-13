@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -143,7 +144,7 @@ class SeleniumPortalTest {
         // Dashboard reflects the seeded demo data.
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcome-heading")));
         assertTrue(driver.findElement(By.id("welcome-heading")).getText().contains("Demo Student"));
-        assertEquals("4", driver.findElement(By.id("stat-courses")).getText());
+        assertEquals("5", driver.findElement(By.id("stat-courses")).getText());
 
         // Results page lists the seeded courses and an average.
         driver.findElement(By.id("nav-results")).click();
@@ -151,7 +152,7 @@ class SeleniumPortalTest {
         String resultsTable = driver.findElement(By.id("results-table")).getText();
         assertTrue(resultsTable.contains("CS101"), "Results should include course CS101");
         assertTrue(resultsTable.contains("Database Systems"), "Results should include course titles");
-        assertEquals("85.6", driver.findElement(By.id("results-average")).getText());
+        assertEquals("87.5", driver.findElement(By.id("results-average")).getText());
 
         // Logging out returns to the login page with a confirmation banner.
         driver.findElement(By.id("nav-logout")).click();
@@ -178,6 +179,39 @@ class SeleniumPortalTest {
         boolean linksToStudentPortal = driver.findElements(By.tagName("a")).stream()
                 .anyMatch(a -> "https://studentportal.diu.edu.bd/".equals(a.getAttribute("href")));
         assertTrue(linksToStudentPortal, "A card should link to the real Student Portal URL");
+    }
+
+    @Test
+    @DisplayName("Academic Result: selecting a semester and searching shows that semester's grades")
+    void academicResultSearchShowsSemesterGrades() {
+        driver.get(baseUrl() + "/login");
+        login("demo", "Passw0rd!");
+
+        // Open the Academic Result page from the nav bar.
+        driver.findElement(By.id("nav-academic-result")).click();
+        wait.until(ExpectedConditions.urlContains("/academic-result"));
+
+        // Student information is shown for the logged-in student.
+        assertEquals("Demo Student", driver.findElement(By.id("info-name")).getText());
+        assertEquals("demo", driver.findElement(By.id("info-id")).getText());
+
+        // Select the "Spring 2026" semester and click Search.
+        new Select(driver.findElement(By.id("semester"))).selectByVisibleText("Spring 2026");
+        driver.findElement(By.id("result-search")).click();
+
+        // The results table for that semester is displayed with the expected data.
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("result-table")));
+        assertEquals("Spring 2026", driver.findElement(By.id("result-semester")).getText());
+
+        String table = driver.findElement(By.id("result-table")).getText();
+        assertTrue(table.contains("CS201"), "Spring 2026 results should include CS201");
+        assertTrue(table.contains("CS301"), "Spring 2026 results should include CS301");
+
+        // GPA and total credits are computed and shown.
+        assertEquals("9", driver.findElement(By.id("total-credits")).getText(),
+                "Spring 2026 has 3 + 3 + 3 = 9 credits");
+        String gpa = driver.findElement(By.id("semester-gpa")).getText();
+        assertTrue(gpa.matches("\\d\\.\\d{2}"), "Semester GPA should be shown as a 2-decimal number, was: " + gpa);
     }
 
     /** Submits the login form and waits for the post-login redirect. */

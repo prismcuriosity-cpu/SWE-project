@@ -249,3 +249,36 @@ a.link {
     color: var(--muted);
     margin-top: 2px;
 }
+
+/* ---- Academic Result: search bar + GPA summary ---- */
+.result-search {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.result-search .search-field {
+    flex: 1;
+    min-width: 240px;
+}
+
+.result-search label {
+    margin-top: 0;
+}
+
+.result-search button {
+    margin-top: 0;
+}
+
+.gpa-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.gpa-summary .stat {
+    min-width: 160px;
+}

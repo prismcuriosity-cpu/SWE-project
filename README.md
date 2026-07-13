@@ -26,6 +26,9 @@ information is displayed after authentication.
   stored only as BCrypt hashes.
 - **Login / logout** — session-based authentication via Spring Security.
 - **Dashboard** — a personalised overview (program, course count, average marks).
+- **Academic Result** — a semester-wise result viewer (Select Semester → Search)
+  showing the student's information and a UGC-graded result table with the
+  semester GPA, modelled on a university result portal.
 - **Access Center** — a hub of quick links to the university's external portals
   (Student Portal, Notice Board, Class Routine, Blended Learning, Question Bank,
   CSE PMS, Hall Management), grouped into sections.

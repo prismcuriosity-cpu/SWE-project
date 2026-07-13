@@ -11,6 +11,7 @@
     <p class="brand">🎓 Student Portal</p>
     <nav>
         <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-academic-result" th:href="@{/academic-result}">Academic Result</a>
         <a id="nav-access" th:href="@{/access}">Access Center</a>
         <a id="nav-profile" th:href="@{/profile}">Profile</a>
         <a id="nav-results" th:href="@{/results}">Results</a>
@@ -49,7 +50,8 @@
 
     <div class="card">
         <h2>Quick links</h2>
-        <a class="btn" th:href="@{/access}">Access Center</a>
+        <a class="btn" th:href="@{/academic-result}">Academic Result</a>
+        <a class="btn" th:href="@{/access}" style="margin-left:12px;">Access Center</a>
         <a class="btn" th:href="@{/profile}" style="margin-left:12px;">View profile</a>
         <a class="btn" th:href="@{/results}" style="margin-left:12px;">View results</a>
     </div>
