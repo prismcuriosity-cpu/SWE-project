@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Result - Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <p class="brand">🎓 Student Portal</p>
+    <nav>
+        <a id="nav-dashboard" th:href="@{/dashboard}">Dashboard</a>
+        <a id="nav-academic-result" th:href="@{/academic-result}">Academic Result</a>
+        <a id="nav-access" th:href="@{/access}">Access Center</a>
+        <a id="nav-profile" th:href="@{/profile}">Profile</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <a id="nav-logout" href="#" onclick="this.closest('form').submit();return false;">Logout</a>
+        </form>
+    </nav>
+</div>
+
+<div class="container">
+    <!-- Search bar (Select Semester + Search), modelled on the university portal -->
+    <div class="card">
+        <h1>Academic Result</h1>
+        <form th:action="@{/academic-result}" method="get" class="result-search">
+            <div class="search-field">
+                <label for="semester">Select Semester</label>
+                <select id="semester" name="semester">
+                    <option value="" th:selected="${selectedSemester == null}">-- Select Semester --</option>
+                    <option th:each="s : ${semesters}" th:value="${s}" th:text="${s}"
+                            th:selected="${s == selectedSemester}">Semester</option>
+                </select>
+            </div>
+            <button id="result-search" type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Student information -->
+    <div class="card">
+        <h2>🎓 Student Information</h2>
+        <div class="profile-row">
+            <div class="key">Name</div>
+            <div class="value" id="info-name" th:text="${student.fullName}">Name</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Student ID</div>
+            <div class="value" id="info-id" th:text="${student.username}">ID</div>
+        </div>
+        <div class="profile-row">
+            <div class="key">Program</div>
+            <div class="value" id="info-program" th:text="${student.program}">Program</div>
+        </div>
+    </div>
+
+    <!-- Results for the selected semester -->
+    <div class="card" th:if="${searched}">
+        <h2>UGC Uniform Grading — <span id="result-semester" th:text="${selectedSemester}">Semester</span></h2>
+
+        <table id="result-table" th:if="${!rows.isEmpty()}">
+            <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Course Title</th>
+                <th>Credit</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Grade Point</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${rows}">
+                <td th:text="${row.courseCode}">CS101</td>
+                <td th:text="${row.courseTitle}">Course</td>
+                <td th:text="${row.credits}">3</td>
+                <td th:text="${#numbers.formatDecimal(row.marks, 1, 1)}">0.0</td>
+                <td th:text="${row.grade}">A</td>
+                <td th:text="${#numbers.formatDecimal(row.gradePoint, 1, 2)}">0.00</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="gpa-summary" th:if="${!rows.isEmpty()}">
+            <div class="stat">
+                <div class="value" id="total-credits" th:text="${totalCredits}">0</div>
+                <div class="label">Total Credits</div>
+            </div>
+            <div class="stat">
+                <div class="value" id="semester-gpa"
+                     th:text="${#numbers.formatDecimal(semesterGpa, 1, 2)}">0.00</div>
+                <div class="label">Semester GPA</div>
+            </div>
+        </div>
+
+        <p id="no-result" class="muted" th:if="${rows.isEmpty()}">
+            No results found for this semester.
+        </p>
+    </div>
+
+    <div class="card" th:unless="${searched}">
+        <p class="muted" id="prompt-select">
+            Select a semester above and click <strong>Search</strong> to view your results.
+        </p>
+    </div>
+</div>
+</body>
+</html>

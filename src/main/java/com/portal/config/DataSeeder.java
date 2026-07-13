@@ -51,13 +51,17 @@ public class DataSeeder {
                 Course cs101 = courses.findByCode("CS101").orElseThrow();
                 Course cs102 = courses.findByCode("CS102").orElseThrow();
                 Course cs201 = courses.findByCode("CS201").orElseThrow();
+                Course cs202 = courses.findByCode("CS202").orElseThrow();
                 Course cs301 = courses.findByCode("CS301").orElseThrow();
 
                 results.saveAll(List.of(
-                        new Result(demo, cs101, "2023-Fall", 88.0, "A"),
-                        new Result(demo, cs102, "2024-Spring", 79.5, "B+"),
-                        new Result(demo, cs201, "2024-Fall", 91.0, "A"),
-                        new Result(demo, cs301, "2025-Spring", 84.0, "A-")
+                        // Fall 2025 semester
+                        new Result(demo, cs101, "Fall 2025", 88.0, "A"),
+                        new Result(demo, cs102, "Fall 2025", 79.5, "B+"),
+                        // Spring 2026 semester
+                        new Result(demo, cs201, "Spring 2026", 91.0, "A"),
+                        new Result(demo, cs202, "Spring 2026", 84.0, "A-"),
+                        new Result(demo, cs301, "Spring 2026", 95.0, "A+")
                 ));
             }
         };
