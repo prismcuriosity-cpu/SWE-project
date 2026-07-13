@@ -195,3 +195,57 @@ a.link {
     color: var(--primary);
     font-weight: 600;
 }
+
+/* ---- Access Center: section headings + link cards ---- */
+.section-title {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #f0f3fb;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.link-card:hover {
+    background: #e7ecfb;
+    box-shadow: 0 4px 14px rgba(20, 30, 60, 0.08);
+    transform: translateY(-2px);
+}
+
+.link-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.link-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.link-title {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.link-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 2px;
+}

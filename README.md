@@ -26,6 +26,9 @@ information is displayed after authentication.
   stored only as BCrypt hashes.
 - **Login / logout** — session-based authentication via Spring Security.
 - **Dashboard** — a personalised overview (program, course count, average marks).
+- **Access Center** — a hub of quick links to the university's external portals
+  (Student Portal, Notice Board, Class Routine, Blended Learning, Question Bank,
+  CSE PMS, Hall Management), grouped into sections.
 - **Profile** — the signed-in student's stored profile information.
 - **Results** — the student's academic results with per-course grades and marks.
 - Each student only ever sees **their own** data (resolved from the security principal).

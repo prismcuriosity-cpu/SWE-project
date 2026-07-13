@@ -158,6 +158,28 @@ class SeleniumPortalTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout-message")));
     }
 
+    @Test
+    @DisplayName("The Access Center lists the external university portals")
+    void accessCenterShowsExternalLinks() {
+        driver.get(baseUrl() + "/login");
+        login("demo", "Passw0rd!");
+
+        // Navigate to the Access Center from the nav bar.
+        driver.findElement(By.id("nav-access")).click();
+        wait.until(ExpectedConditions.urlContains("/access"));
+
+        String pageText = driver.findElement(By.tagName("body")).getText();
+        assertTrue(pageText.contains("Student Access Center"), "Access Center heading should be shown");
+        assertTrue(pageText.contains("Student Portal"), "Should list the Student Portal link");
+        assertTrue(pageText.contains("Blended Learning Center"), "Should list the e-learn link");
+        assertTrue(pageText.contains("Question Bank"), "Should list the Question Bank link");
+
+        // The cards must actually point at the external university URLs.
+        boolean linksToStudentPortal = driver.findElements(By.tagName("a")).stream()
+                .anyMatch(a -> "https://studentportal.diu.edu.bd/".equals(a.getAttribute("href")));
+        assertTrue(linksToStudentPortal, "A card should link to the real Student Portal URL");
+    }
+
     /** Submits the login form and waits for the post-login redirect. */
     private void login(String username, String password) {
         if (!driver.getCurrentUrl().contains("/login")) {
